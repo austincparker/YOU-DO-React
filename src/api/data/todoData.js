@@ -16,7 +16,10 @@ const createTodo = (obj) => new Promise((resolve, reject) => {
     .then((response) => {
       const firebaseKey = response.data.name;
       axios
-        .patch(`${baseURL}/todos/${firebaseKey}.json`, { firebaseKey })
+        .patch(`${baseURL}/todos/${firebaseKey}.json`, {
+          firebaseKey,
+          id: Math.floor(Math.random() * 1000),
+        })
         .then(() => {
           getTodos().then(resolve);
         });

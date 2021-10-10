@@ -18,10 +18,11 @@ export default function TodoForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     createTodo(formInput);
+    document.getElementById('todoForm').reset();
   };
 
   return (
-    <form>
+    <form id="todoForm">
       <label htmlFor="name">
         Name
         <input
@@ -42,7 +43,7 @@ export default function TodoForm({ obj }) {
 TodoForm.propTypes = {
   obj: PropTypes.shape({
     name: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
   }),
   //   add: PropTypes.function.isRequired,
   //   update: PropTypes.function.isRequired,
