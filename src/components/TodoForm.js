@@ -18,7 +18,9 @@ export default function TodoForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     createTodo(formInput);
-    document.getElementById('todoForm').reset();
+    setFormInput({
+      name: '',
+    });
   };
 
   return (
