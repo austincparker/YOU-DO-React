@@ -1,20 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert } from 'reactstrap';
+import { deleteTodo } from '../api/data/todoData';
 
-export default function Todo({ taco }) {
+export default function Todo({ taco, setTodos }) {
+  const handleClick = (method) => {
+    if (method === 'delete') {
+      deleteTodo(taco.firebaseKey).then(setTodos);
+    } else {
+      // update complete value on todo
+    }
+  };
+
   return (
-    <>
-      <Alert color="light">
-        <button className="btn btn-success" type="button">
+    <div>
+      <div
+        className="d-flex justify-content-between alert alert-light todo-comp"
+        role="alert"
+      >
+        <button
+          onClick={() => handleClick('complete')}
+          className="btn btn-success"
+          type="button"
+        >
           COMPLETE
         </button>
         {taco.name}
-        <button className="btn btn-danger" type="button">
+        <button
+          onClick={() => handleClick('delete')}
+          className="btn btn-danger"
+          type="button"
+        >
           DELETE
         </button>
-      </Alert>
-    </>
+      </div>
+    </div>
   );
 }
 
@@ -22,7 +41,9 @@ Todo.propTypes = {
   taco: PropTypes.shape({
     name: PropTypes.string,
     complete: PropTypes.bool,
+    firebaseKey: PropTypes.string,
     date: PropTypes.string,
     uid: PropTypes.string,
   }).isRequired,
+  setTodos: PropTypes.func.isRequired,
 };
