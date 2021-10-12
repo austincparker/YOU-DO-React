@@ -12,13 +12,13 @@ export default function Todo({ taco, setTodos }) {
   };
 
   return (
-    <div>
+    <div className="d-flex justify-content-center">
       <div
         className="d-flex justify-content-between alert alert-light todo-comp"
         role="alert"
       >
         <button
-          onClick={() => handleClick('complete')}
+          onClick={() => console.warn(taco)}
           className="btn btn-success"
           type="button"
         >
