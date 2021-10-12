@@ -2,14 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { deleteTodo, updateTodo } from '../api/data/todoData';
 
-export default function Todo({ taco, setTodos }) {
+export default function Todo({ taco, setTodos, setEditItem }) {
   const handleClick = (method) => {
     if (method === 'delete') {
       console.warn('delete');
       deleteTodo(taco.firebaseKey).then(setTodos);
-    } else {
+    } else if (method === 'edit') {
       console.warn(taco);
-      updateTodo({ ...taco, complete: true }).then(setTodos);
+      updateTodo(taco.firebaseKey, { name: '' }).then(setTodos);
+      console.warn(taco);
+    } else {
+      updateTodo(taco.firebaseKey, { complete: !taco.complete }).then(setTodos);
+      console.warn(taco);
     }
   };
 
@@ -24,9 +28,16 @@ export default function Todo({ taco, setTodos }) {
           className="btn btn-success"
           type="button"
         >
-          COMPLETE
+          {taco.complete ? 'DONE' : 'COMPLETE'}
         </button>
         {taco.name}
+        <button
+          onClick={() => setEditItem(taco)}
+          className="btn btn-info"
+          type="button"
+        >
+          EDIT
+        </button>
         <button
           onClick={() => handleClick('delete')}
           className="btn btn-danger"
@@ -48,4 +59,5 @@ Todo.propTypes = {
     uid: PropTypes.string,
   }).isRequired,
   setTodos: PropTypes.func.isRequired,
+  setEditItem: PropTypes.func.isRequired,
 };
