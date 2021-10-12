@@ -47,7 +47,7 @@ export default function TodoForm({ obj, setTodos }) {
   };
 
   return (
-    <form id="todoForm">
+    <form id="todoForm" className="mb-5">
       <label htmlFor="name">
         Name
         <input

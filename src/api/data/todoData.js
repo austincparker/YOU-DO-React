@@ -35,4 +35,13 @@ const deleteTodo = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getTodos, createTodo, deleteTodo };
+const updateTodo = (todoObj) => new Promise((resolve, reject) => {
+  axios
+    .patch(`${baseURL}/todos/${todoObj.firebaseKey}.json`, todoObj)
+    .then(() => getTodos().then(resolve))
+    .catch(reject);
+});
+
+export {
+  getTodos, createTodo, deleteTodo, updateTodo,
+};

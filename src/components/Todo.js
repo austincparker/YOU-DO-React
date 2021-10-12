@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { deleteTodo } from '../api/data/todoData';
+import { deleteTodo, updateTodo } from '../api/data/todoData';
 
 export default function Todo({ taco, setTodos }) {
   const handleClick = (method) => {
     if (method === 'delete') {
+      console.warn('delete');
       deleteTodo(taco.firebaseKey).then(setTodos);
     } else {
-      // update complete value on todo
+      console.warn(taco);
+      updateTodo({ ...taco, complete: true }).then(setTodos);
     }
   };
 
@@ -18,7 +20,7 @@ export default function Todo({ taco, setTodos }) {
         role="alert"
       >
         <button
-          onClick={() => console.warn(taco)}
+          onClick={() => handleClick('complete')}
           className="btn btn-success"
           type="button"
         >
