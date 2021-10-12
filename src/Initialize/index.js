@@ -19,7 +19,7 @@ function Initialize() {
           key={todo.firebaseKey}
           taco={todo}
           setTodos={setTodos}
-          setEditItem={editItem}
+          setEditItem={setEditItem}
         />
       ))}
     </>
