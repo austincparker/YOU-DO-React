@@ -14,7 +14,7 @@ function Initialize() {
     <>
       <TodoForm setTodos={setTodos} />
       {todos.map((todo) => (
-        <Todo key={todo.name} taco={todo} setTodos={setTodos} />
+        <Todo key={todo.firebaseKey} taco={todo} setTodos={setTodos} />
       ))}
     </>
   );
