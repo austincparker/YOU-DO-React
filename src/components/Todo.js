@@ -49,7 +49,7 @@ export default function Todo({ taco, setTodos, setEditItem }) {
             <i className="fas fa-square" />
           )}
         </Button>
-        {taco.name}
+        <div className="d-flex align-items-center">{taco.name}</div>
         <div>
           <Button
             color="info"

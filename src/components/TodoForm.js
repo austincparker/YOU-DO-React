@@ -77,12 +77,7 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
               placeholder="ADD A YOU-DO"
             />
           </label>
-          <Button
-            color="success"
-            type="submit"
-            onClick={handleSubmit}
-            className="btn btn-success"
-          >
+          <Button color="success" type="submit" onClick={handleSubmit}>
             {obj.firebaseKey ? 'Update' : 'Submit'}
           </Button>
         </form>
