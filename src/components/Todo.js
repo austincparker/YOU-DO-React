@@ -20,15 +20,11 @@ const TodoStyle = styled.div`
 export default function Todo({ taco, setTodos, setEditItem }) {
   const handleClick = (method) => {
     if (method === 'delete') {
-      console.warn('delete');
       deleteTodo(taco.firebaseKey).then(setTodos);
     } else if (method === 'edit') {
-      console.warn(taco);
       updateTodo(taco.firebaseKey, { name: '' }).then(setTodos);
-      console.warn(taco);
     } else {
       updateTodo(taco.firebaseKey, { complete: !taco.complete }).then(setTodos);
-      console.warn(taco);
     }
   };
 
