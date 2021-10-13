@@ -51,12 +51,17 @@ export default function Todo({ taco, setTodos, setEditItem }) {
         </Button>
         {taco.name}
         <div>
-          <Button color="info" onClick={() => setEditItem(taco)} type="button">
+          <Button
+            color="info"
+            onClick={() => setEditItem(taco)}
+            type="button"
+            className="me-1"
+          >
             EDIT
           </Button>
           <Button
             onClick={() => handleClick('delete')}
-            className="btn btn-danger"
+            color="danger"
             type="button"
           >
             DELETE
