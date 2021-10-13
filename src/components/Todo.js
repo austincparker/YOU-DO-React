@@ -1,6 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Button } from 'reactstrap';
 import { deleteTodo, updateTodo } from '../api/data/todoData';
+
+const TodoStyle = styled.div`
+  color: black;
+  border: 2px darkgrey solid;
+  border-radius: 10px;
+  max-width: 666px;
+  button {
+    color: whitesmoke;
+  }
+  button:hover {
+    color: lightgrey;
+  }
+`;
 
 export default function Todo({ taco, setTodos, setEditItem }) {
   const handleClick = (method) => {
@@ -19,33 +34,35 @@ export default function Todo({ taco, setTodos, setEditItem }) {
 
   return (
     <div className="d-flex justify-content-center">
-      <div
+      <TodoStyle
         className="d-flex justify-content-between alert alert-light todo-comp"
         role="alert"
       >
-        <button
+        <Button
+          color="success"
           onClick={() => handleClick('complete')}
-          className="btn btn-success"
           type="button"
         >
-          {taco.complete ? 'DONE' : 'COMPLETE'}
-        </button>
+          {taco.complete ? (
+            <i className="fas fa-check-square" />
+          ) : (
+            <i className="fas fa-square" />
+          )}
+        </Button>
         {taco.name}
-        <button
-          onClick={() => setEditItem(taco)}
-          className="btn btn-info"
-          type="button"
-        >
-          EDIT
-        </button>
-        <button
-          onClick={() => handleClick('delete')}
-          className="btn btn-danger"
-          type="button"
-        >
-          DELETE
-        </button>
-      </div>
+        <div>
+          <Button color="info" onClick={() => setEditItem(taco)} type="button">
+            EDIT
+          </Button>
+          <Button
+            onClick={() => handleClick('delete')}
+            className="btn btn-danger"
+            type="button"
+          >
+            DELETE
+          </Button>
+        </div>
+      </TodoStyle>
     </div>
   );
 }

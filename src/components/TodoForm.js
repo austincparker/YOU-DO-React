@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Button } from 'reactstrap';
 import { createTodo, updateTodo } from '../api/data/todoData';
+
+const TodoStyle = styled.div`
+  input {
+    min-width: 400px;
+    margin-right: 5px !important;
+  }
+
+  button:hover {
+    color: whitesmoke;
+  }
+`;
 
 const initialState = {
   name: '',
@@ -49,22 +62,31 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
   };
 
   return (
-    <div className="d-flex justify-content-center mt-5">
-      <form id="todoForm" className="mb-3">
-        <label htmlFor="name">
-          Name
-          <input
-            name="name"
-            id="name"
-            value={formInput.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <button type="submit" onClick={handleSubmit}>
-          {obj.firebaseKey ? 'Update' : 'Submit'}
-        </button>
-      </form>
+    <div className="text-center">
+      <h1 className="mt-5 display-1">YOU-DO</h1>
+      <TodoStyle className="d-flex justify-content-center mt-5">
+        <form id="todoForm" className="mb-3">
+          <label htmlFor="name" className="me-1">
+            <input
+              name="name"
+              id="name"
+              value={formInput.name}
+              onChange={handleChange}
+              required
+              className="form-control"
+              placeholder="ADD A YOU-DO"
+            />
+          </label>
+          <Button
+            color="success"
+            type="submit"
+            onClick={handleSubmit}
+            className="btn btn-success"
+          >
+            {obj.firebaseKey ? 'Update' : 'Submit'}
+          </Button>
+        </form>
+      </TodoStyle>
     </div>
   );
 }
