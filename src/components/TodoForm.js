@@ -65,7 +65,7 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
     <div className="text-center">
       <h1 className="mt-5 display-1">YOU-DO</h1>
       <TodoStyle className="d-flex justify-content-center mt-2">
-        <form id="todoForm" className="mb-3">
+        <form id="todoForm" className="mb-3 d-flex align-items-center">
           <label htmlFor="name" className="me-1">
             <input
               name="name"
@@ -77,12 +77,7 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
               placeholder="ADD A YOU-DO"
             />
           </label>
-          <Button
-            color="success"
-            type="submit"
-            onClick={handleSubmit}
-            className="btn btn-success"
-          >
+          <Button color="success" type="submit" onClick={handleSubmit}>
             {obj.firebaseKey ? 'Update' : 'Submit'}
           </Button>
         </form>
