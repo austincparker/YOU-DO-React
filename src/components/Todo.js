@@ -47,14 +47,16 @@ export default function Todo({ taco, setTodos, setEditItem }) {
         </Button>
         <div className="d-flex align-items-center">{taco.name}</div>
         <div>
-          <Button
-            color="info"
-            onClick={() => setEditItem(taco)}
-            type="button"
-            className="me-1"
-          >
-            EDIT
-          </Button>
+          {!taco.complete && (
+            <Button
+              color="info"
+              onClick={() => setEditItem(taco)}
+              type="button"
+              className="me-1"
+            >
+              EDIT
+            </Button>
+          )}
           <Button
             onClick={() => handleClick('delete')}
             color="danger"
