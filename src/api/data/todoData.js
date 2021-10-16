@@ -10,6 +10,13 @@ const getTodos = (value) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getAllTodos = () => new Promise((resolve, reject) => {
+  axios
+    .get(`${baseURL}/todos.json`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch(reject);
+});
+
 const createTodo = (obj) => new Promise((resolve, reject) => {
   axios
     .post(`${baseURL}/todos.json`, obj)
@@ -51,5 +58,10 @@ const updateTodo = (firebaseKey, updateObj) => new Promise((resolve, reject) => 
 });
 
 export {
-  getTodos, createTodo, deleteTodo, updateTodo, deleteCompletedTodo,
+  getTodos,
+  createTodo,
+  deleteTodo,
+  updateTodo,
+  deleteCompletedTodo,
+  getAllTodos,
 };
