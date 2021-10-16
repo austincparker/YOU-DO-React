@@ -9,7 +9,7 @@ function Initialize() {
   const [editItem, setEditItem] = useState({});
 
   useEffect(() => {
-    getTodos().then(setTodos);
+    getTodos(false).then(setTodos);
   }, []);
 
   return (
