@@ -12,6 +12,7 @@ export default function Completed() {
     <div>
       {completedTodos.map((completedTodo) => (
         <CompletedTodos
+          key={completedTodo.firebaseKey}
           completedTodo={completedTodo}
           setCompletedTodos={setCompletedTodos}
         />
