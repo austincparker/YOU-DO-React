@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { getAllTodos } from '../api/data/todoData';
 import Todo from '../components/Todo';
 
-export default function All() {
-  const [todos, setTodos] = useState([]);
+export default function All({ setEditItem }) {
+  const [allTodos, setAllTodos] = useState([]);
 
   useEffect(() => {
-    getAllTodos().then(setTodos);
+    getAllTodos().then(setAllTodos);
   }, []);
   return (
     <div>
-      {todos.map((todo) => (
-        <Todo key={todo.firebaseKey} taco={todo} setTodos={setTodos} />
+      {allTodos.map((allTodo) => (
+        <Todo
+          key={allTodo.firebaseKey}
+          taco={allTodo}
+          setTodos={setAllTodos}
+          setEditItem={setEditItem}
+        />
       ))}
     </div>
   );
 }
+
+All.propTypes = {
+  setEditItem: PropTypes.func.isRequired,
+};
