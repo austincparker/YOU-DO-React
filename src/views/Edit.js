@@ -6,7 +6,7 @@ import TodoForm from '../components/TodoForm';
 
 export default function Edit({ uid }) {
   const [editItem, setEditItem] = useState({});
-  const { key } = useParams;
+  const { key } = useParams();
 
   useEffect(() => {
     getSingleTodo(key).then(setEditItem);
