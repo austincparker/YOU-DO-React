@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
 import { createTodo, updateTodo } from '../api/data/todoData';
 
 const TodoStyle = styled.div`
@@ -22,28 +23,22 @@ const initialState = {
 };
 
 export default function TodoForm({
-  obj,
-  setTodos,
-  setEditItem,
   uid,
+  editItem,
 }) {
   const [formInput, setFormInput] = useState(initialState);
+  const history = useHistory;
 
   useEffect(() => {
-    if (obj.firebaseKey) {
-      setFormInput({
-        name: obj.name,
-        firebaseKey: obj.firebaseKey,
-        complete: obj.complete,
-        date: obj.date,
-        uid,
-      });
+    if (editItem.firebaseKey) {
+      setFormInput(editItem);
+    } else {
+      setFormInput(initialState);
     }
-  }, [obj]);
+  }, [editItem]);
 
   const resetForm = () => {
     setFormInput({ ...initialState });
-    setEditItem({});
   };
 
   const handleChange = (e) => {
@@ -55,13 +50,12 @@ export default function TodoForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.firebaseKey) {
-      updateTodo(formInput.firebaseKey, formInput).then((todos) => setTodos(todos));
+    if (editItem.firebaseKey) {
+      updateTodo(formInput.firebaseKey, formInput).then(() => history.push('/'));
       resetForm();
     } else {
-      createTodo({ ...formInput, date: new Date() }).then((todos) => {
-        setTodos(todos);
-        resetForm();
+      createTodo({ ...formInput, date: new Date(), uid }).then(() => {
+        history.push('/');
       });
     }
   };
@@ -83,7 +77,7 @@ export default function TodoForm({
             />
           </label>
           <Button color="success" type="submit" onClick={handleSubmit}>
-            {obj.firebaseKey ? 'Update' : 'Submit'}
+            {editItem.firebaseKey ? 'Update' : 'Submit'}
           </Button>
         </form>
       </TodoStyle>
@@ -92,18 +86,11 @@ export default function TodoForm({
 }
 
 TodoForm.propTypes = {
-  uid: PropTypes.string.isRequired,
-  obj: PropTypes.shape({
-    name: PropTypes.string,
-    complete: PropTypes.bool,
-    date: PropTypes.string,
-    firebaseKey: PropTypes.string,
-    uid: PropTypes.string,
-  }),
-  setTodos: PropTypes.func.isRequired,
-  setEditItem: PropTypes.func.isRequired,
+  uid: PropTypes.string,
+  editItem: PropTypes.shape(PropTypes.obj),
 };
 
 TodoForm.defaultProps = {
-  obj: {},
+  editItem: {},
+  uid: '',
 };

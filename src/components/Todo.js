@@ -17,14 +17,14 @@ const TodoStyle = styled.div`
   }
 `;
 
-export default function Todo({ taco, setTodos, setEditItem }) {
+export default function Todo({ todo, setTodos, setEditItem }) {
   const handleClick = (method) => {
     if (method === 'delete') {
-      deleteTodo(taco.firebaseKey).then(setTodos);
+      deleteTodo(todo.firebaseKey).then(setTodos);
     } else if (method === 'edit') {
-      updateTodo(taco.firebaseKey, { name: '' }).then(setTodos);
+      updateTodo(todo.firebaseKey, { name: '' }).then(setTodos);
     } else {
-      updateTodo(taco.firebaseKey, { complete: !taco.complete }).then(setTodos);
+      updateTodo(todo.firebaseKey, { complete: !todo.complete }).then(setTodos);
     }
   };
 
@@ -39,18 +39,18 @@ export default function Todo({ taco, setTodos, setEditItem }) {
           onClick={() => handleClick('complete')}
           type="button"
         >
-          {taco.complete ? (
+          {todo.complete ? (
             <i className="fas fa-check-square" />
           ) : (
             <i className="fas fa-square" />
           )}
         </Button>
-        <div className="d-flex align-items-center">{taco.name}</div>
+        <div className="d-flex align-items-center">{todo.name}</div>
         <div>
-          {!taco.complete && (
+          {!todo.complete && (
             <Button
               color="info"
-              onClick={() => setEditItem(taco)}
+              onClick={() => setEditItem(todo)}
               type="button"
               className="me-1"
             >
@@ -71,7 +71,7 @@ export default function Todo({ taco, setTodos, setEditItem }) {
 }
 
 Todo.propTypes = {
-  taco: PropTypes.shape({
+  todo: PropTypes.shape({
     name: PropTypes.string,
     complete: PropTypes.bool,
     firebaseKey: PropTypes.string,

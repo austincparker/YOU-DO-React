@@ -3,9 +3,9 @@ import firebaseConfig from '../apiKeys';
 
 const baseURL = firebaseConfig.databaseURL;
 
-const getTodos = (value) => new Promise((resolve, reject) => {
+const getTodos = (value, uid) => new Promise((resolve, reject) => {
   axios
-    .get(`${baseURL}/todos.json?orderBy="complete"&equalTo=${value}`)
+    .get(`${baseURL}/todos.json?orderBy="complete"&equalTo=${value}&orderBy="uid"&equalTo=${uid}`)
     .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
@@ -17,7 +17,7 @@ const getAllTodos = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createTodo = (obj) => new Promise((resolve, reject) => {
+const createTodo = (obj, uid) => new Promise((resolve, reject) => {
   axios
     .post(`${baseURL}/todos.json`, obj)
     .then((response) => {
@@ -25,7 +25,7 @@ const createTodo = (obj) => new Promise((resolve, reject) => {
       axios
         .patch(`${baseURL}/todos/${firebaseKey}.json`, {
           firebaseKey,
-          id: Math.floor(Math.random() * 1000),
+          uid,
         })
         .then(() => {
           getTodos(false).then(resolve);
@@ -57,6 +57,15 @@ const updateTodo = (firebaseKey, updateObj) => new Promise((resolve, reject) => 
   console.warn(updateObj);
 });
 
+const getSingleTodo = (firebaseKey) => new Promise((resolve, reject) => {
+  axios
+    .get(`${baseURL}/todos/${firebaseKey}.json`)
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch(reject);
+});
+
 export {
   getTodos,
   createTodo,
@@ -64,4 +73,5 @@ export {
   updateTodo,
   deleteCompletedTodo,
   getAllTodos,
+  getSingleTodo,
 };

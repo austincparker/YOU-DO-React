@@ -14,7 +14,7 @@ export default function All({ setEditItem }) {
       {allTodos.map((allTodo) => (
         <Todo
           key={allTodo.firebaseKey}
-          taco={allTodo}
+          todo={allTodo}
           setTodos={setAllTodos}
           setEditItem={setEditItem}
         />

@@ -6,9 +6,6 @@ import Home from '../views/Home';
 import All from '../views/All';
 
 export default function Routes({
-  todos,
-  setTodos,
-  setEditItem,
   uid,
 }) {
   return (
@@ -18,7 +15,9 @@ export default function Routes({
           exact
           path="/"
           component={() => (
-            <Home todos={todos} setTodos={setTodos} setEditItem={setEditItem} uid={uid} />
+            <Home
+              uid={uid}
+            />
           )}
         />
         <Route exact path="/completed" component={() => <Completed />} />
@@ -27,7 +26,9 @@ export default function Routes({
           exact
           path="/all"
           component={() => (
-            <All todos={todos} setTodos={setTodos} setEditItem={setEditItem} />
+            <All
+              uid={uid}
+            />
           )}
         />
       </Switch>
@@ -36,8 +37,5 @@ export default function Routes({
 }
 
 Routes.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setTodos: PropTypes.func.isRequired,
-  setEditItem: PropTypes.func.isRequired,
   uid: PropTypes.string.isRequired,
 };
