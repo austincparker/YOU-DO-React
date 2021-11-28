@@ -21,7 +21,12 @@ const initialState = {
   uid: '',
 };
 
-export default function TodoForm({ obj, setTodos, setEditItem }) {
+export default function TodoForm({
+  obj,
+  setTodos,
+  setEditItem,
+  uid,
+}) {
   const [formInput, setFormInput] = useState(initialState);
 
   useEffect(() => {
@@ -31,7 +36,7 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
         firebaseKey: obj.firebaseKey,
         complete: obj.complete,
         date: obj.date,
-        uid: obj.uid,
+        uid,
       });
     }
   }, [obj]);
@@ -87,6 +92,7 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
 }
 
 TodoForm.propTypes = {
+  uid: PropTypes.string.isRequired,
   obj: PropTypes.shape({
     name: PropTypes.string,
     complete: PropTypes.bool,

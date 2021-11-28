@@ -5,7 +5,12 @@ import Completed from '../views/Completed';
 import Home from '../views/Home';
 import All from '../views/All';
 
-export default function Routes({ todos, setTodos, setEditItem }) {
+export default function Routes({
+  todos,
+  setTodos,
+  setEditItem,
+  uid,
+}) {
   return (
     <div>
       <Switch>
@@ -13,7 +18,7 @@ export default function Routes({ todos, setTodos, setEditItem }) {
           exact
           path="/"
           component={() => (
-            <Home todos={todos} setTodos={setTodos} setEditItem={setEditItem} />
+            <Home todos={todos} setTodos={setTodos} setEditItem={setEditItem} uid={uid} />
           )}
         />
         <Route exact path="/completed" component={() => <Completed />} />
@@ -34,4 +39,5 @@ Routes.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
   setTodos: PropTypes.func.isRequired,
   setEditItem: PropTypes.func.isRequired,
+  uid: PropTypes.string.isRequired,
 };

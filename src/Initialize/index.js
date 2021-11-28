@@ -36,8 +36,8 @@ function Initialize() {
       user ? (
         <>
           <Navigation />
-          <TodoForm obj={editItem} setTodos={setTodos} setEditItem={setEditItem} />
-          <Routes todos={todos} setTodos={setTodos} setEditItem={setEditItem} />
+          <TodoForm obj={editItem} setTodos={setTodos} setEditItem={setEditItem} uid={user.uid} />
+          <Routes todos={todos} setTodos={setTodos} setEditItem={setEditItem} uid={user.uid} />
         </>
       ) : (
         <SignIn />
