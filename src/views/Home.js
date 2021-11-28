@@ -8,13 +8,13 @@ export default function Home({
 }) {
   const [todos, setTodos] = useState([]);
 
-  useEffect(() => getTodos().then(setTodos), []);
+  useEffect(() => getTodos(false, uid).then(setTodos), []);
 
   return (
     <div>
       {todos.map((todo) => (
         <Todo
-          key={todo.firebaseKey}
+          todo={todo}
           uid={uid}
         />
       ))}

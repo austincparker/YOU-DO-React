@@ -8,6 +8,7 @@ import All from '../views/All';
 export default function Routes({
   uid,
 }) {
+  console.warn(uid);
   return (
     <div>
       <Switch>

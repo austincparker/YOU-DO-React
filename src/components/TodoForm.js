@@ -27,7 +27,7 @@ export default function TodoForm({
   editItem,
 }) {
   const [formInput, setFormInput] = useState(initialState);
-  const history = useHistory;
+  const history = useHistory();
 
   useEffect(() => {
     if (editItem.firebaseKey) {

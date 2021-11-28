@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
 import { deleteTodo, updateTodo } from '../api/data/todoData';
 
 const TodoStyle = styled.div`
@@ -17,7 +18,9 @@ const TodoStyle = styled.div`
   }
 `;
 
-export default function Todo({ todo, setTodos, setEditItem }) {
+export default function Todo({ todo, setTodos }) {
+  console.warn(todo.name);
+  const history = useHistory();
   const handleClick = (method) => {
     if (method === 'delete') {
       deleteTodo(todo.firebaseKey).then(setTodos);
@@ -50,7 +53,7 @@ export default function Todo({ todo, setTodos, setEditItem }) {
           {!todo.complete && (
             <Button
               color="info"
-              onClick={() => setEditItem(todo)}
+              onClick={() => history.push(`/${todo.firebaseKey}`)}
               type="button"
               className="me-1"
             >
@@ -79,5 +82,4 @@ Todo.propTypes = {
     uid: PropTypes.string,
   }).isRequired,
   setTodos: PropTypes.func.isRequired,
-  setEditItem: PropTypes.func.isRequired,
 };
