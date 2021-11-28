@@ -12,6 +12,7 @@ export default function Edit({ uid }) {
     getSingleTodo(key).then(setEditItem);
   }, []);
 
+  console.warn(editItem);
   return (
     <div>
       <h1>Edit</h1>

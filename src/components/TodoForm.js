@@ -57,6 +57,7 @@ export default function TodoForm({
       createTodo({ ...formInput, date: new Date(), uid }).then(() => {
         history.push('/');
       });
+      resetForm();
     }
   };
 

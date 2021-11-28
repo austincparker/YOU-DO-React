@@ -53,7 +53,7 @@ export default function Todo({ todo, setTodos }) {
           {!todo.complete && (
             <Button
               color="info"
-              onClick={() => history.push(`/${todo.firebaseKey}`)}
+              onClick={() => history.push(`/edit/${todo.firebaseKey}`)}
               type="button"
               className="me-1"
             >

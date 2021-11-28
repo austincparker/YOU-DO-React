@@ -9,7 +9,8 @@ export default function FormRoutes({ uid }) {
     <div>
       <Switch>
         <Route
-          path={['/', '/all', 'completed']}
+          exact
+          path="/"
           component={() => (
             <Create
               uid={uid}

@@ -10,9 +10,9 @@ const getTodos = (value, uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getAllTodos = () => new Promise((resolve, reject) => {
+const getAllTodos = (uid) => new Promise((resolve, reject) => {
   axios
-    .get(`${baseURL}/todos.json`)
+    .get(`${baseURL}/todos.json?orderBy"uid"&equalTo=${uid}`)
     .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
