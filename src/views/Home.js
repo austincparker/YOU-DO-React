@@ -16,6 +16,7 @@ export default function Home({
           taco={todo}
           setTodos={setTodos}
           setEditItem={setEditItem}
+          uid={uid}
         />
       ))}
     </div>
