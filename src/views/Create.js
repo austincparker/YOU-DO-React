@@ -5,7 +5,6 @@ import TodoForm from '../components/TodoForm';
 export default function Create({ uid }) {
   return (
     <div>
-      <h1>Create</h1>
       <TodoForm uid={uid} />
     </div>
   );

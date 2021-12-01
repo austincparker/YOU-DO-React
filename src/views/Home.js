@@ -14,6 +14,7 @@ export default function Home({
     <div>
       {todos.map((todo) => (
         <Todo
+          key={todo.firebaseKey}
           todo={todo}
           uid={uid}
         />

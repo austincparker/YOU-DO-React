@@ -5,14 +5,14 @@ const baseURL = firebaseConfig.databaseURL;
 
 const getTodos = (value, uid) => new Promise((resolve, reject) => {
   axios
-    .get(`${baseURL}/todos.json?orderBy="complete"&equalTo=${value}&orderBy="uid"&equalTo=${uid}`)
+    .get(`${baseURL}/todos.json?orderBy="complete"&equalTo=${value}&orderBy="uid"&equalTo="${uid}"`)
     .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
 
 const getAllTodos = (uid) => new Promise((resolve, reject) => {
   axios
-    .get(`${baseURL}/todos.json?orderBy"uid"&equalTo=${uid}`)
+    .get(`${baseURL}/todos.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });

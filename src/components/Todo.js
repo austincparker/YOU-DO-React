@@ -19,7 +19,6 @@ const TodoStyle = styled.div`
 `;
 
 export default function Todo({ todo, setTodos }) {
-  console.warn(todo.name);
   const history = useHistory();
   const handleClick = (method) => {
     if (method === 'delete') {
@@ -81,5 +80,9 @@ Todo.propTypes = {
     date: PropTypes.string,
     uid: PropTypes.string,
   }).isRequired,
-  setTodos: PropTypes.func.isRequired,
+  setTodos: PropTypes.func,
+};
+
+Todo.defaultProps = {
+  setTodos: () => {},
 };
