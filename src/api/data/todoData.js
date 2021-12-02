@@ -28,7 +28,7 @@ const createTodo = (obj, uid) => new Promise((resolve, reject) => {
           uid,
         })
         .then(() => {
-          getTodos(false).then(resolve);
+          getTodos(false, uid).then(resolve);
         });
     })
     .catch(reject);
@@ -49,12 +49,18 @@ const deleteCompletedTodo = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateTodo = (firebaseKey, updateObj) => new Promise((resolve, reject) => {
+const updateTodo = (firebaseKey, updateObj, uid) => new Promise((resolve, reject) => {
   axios
     .patch(`${baseURL}/todos/${firebaseKey}.json`, updateObj)
-    .then(() => getTodos(false).then(resolve))
+    .then(() => getTodos(false, uid).then(resolve))
     .catch(reject);
-  console.warn(updateObj);
+});
+
+const updateAllTodo = (firebaseKey, updateObj, uid) => new Promise((resolve, reject) => {
+  axios
+    .patch(`${baseURL}/todos/${firebaseKey}.json`, updateObj)
+    .then(() => getAllTodos(uid).then(resolve))
+    .catch(reject);
 });
 
 const getSingleTodo = (firebaseKey) => new Promise((resolve, reject) => {
@@ -74,4 +80,5 @@ export {
   deleteCompletedTodo,
   getAllTodos,
   getSingleTodo,
+  updateAllTodo,
 };

@@ -17,6 +17,7 @@ export default function Home({
           key={todo.firebaseKey}
           todo={todo}
           uid={uid}
+          setTodos={setTodos}
         />
       ))}
     </div>

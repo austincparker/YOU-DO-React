@@ -8,7 +8,6 @@ import All from '../views/All';
 export default function Routes({
   uid,
 }) {
-  console.warn(uid);
   return (
     <div>
       <Switch>
@@ -21,7 +20,7 @@ export default function Routes({
             />
           )}
         />
-        <Route exact path="/completed" component={() => <Completed />} />
+        <Route exact path="/completed" component={() => <Completed uid={uid} />} />
         {/* <Route path="*" component={NotFound} /> */}
         <Route
           exact
@@ -38,5 +37,9 @@ export default function Routes({
 }
 
 Routes.propTypes = {
-  uid: PropTypes.string.isRequired,
+  uid: PropTypes.string,
+};
+
+Routes.defaultProps = {
+  uid: '',
 };

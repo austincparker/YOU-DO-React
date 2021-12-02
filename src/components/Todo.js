@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'reactstrap';
-import { useHistory } from 'react-router-dom';
-import { deleteTodo, updateTodo } from '../api/data/todoData';
+import { useHistory, useLocation } from 'react-router-dom';
+import { deleteTodo, updateAllTodo, updateTodo } from '../api/data/todoData';
 
 const TodoStyle = styled.div`
   color: black;
@@ -18,15 +18,26 @@ const TodoStyle = styled.div`
   }
 `;
 
-export default function Todo({ todo, setTodos }) {
+export default function Todo({ todo, setTodos, uid }) {
   const history = useHistory();
+  const location = useLocation();
   const handleClick = (method) => {
     if (method === 'delete') {
       deleteTodo(todo.firebaseKey).then(setTodos);
     } else if (method === 'edit') {
       updateTodo(todo.firebaseKey, { name: '' }).then(setTodos);
-    } else {
-      updateTodo(todo.firebaseKey, { complete: !todo.complete }).then(setTodos);
+    } else if ((method === 'complete') && (location.pathname === '/')) {
+      console.warn(method, location.pathname);
+      updateTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
+    } else if ((method === 'complete') && (location.pathname === '/all')) {
+      console.warn(method, location.pathname);
+      updateAllTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
+    } else if ((method === 'uncomplete') && (location.pathname === '/')) {
+      console.warn(method, location.pathname);
+      updateTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
+    } else if ((method === 'uncomplete') && (location.pathname === '/all')) {
+      console.warn(method, location.pathname);
+      updateAllTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
     }
   };
 
@@ -36,17 +47,24 @@ export default function Todo({ todo, setTodos }) {
         className="d-flex justify-content-between alert alert-light todo-comp"
         role="alert"
       >
-        <Button
-          color="success"
-          onClick={() => handleClick('complete')}
-          type="button"
-        >
-          {todo.complete ? (
+        {todo.complete ? (
+          <Button
+            color="success"
+            onClick={() => handleClick('uncomplete')}
+            type="button"
+          >
             <i className="fas fa-check-square" />
-          ) : (
+
+          </Button>
+        ) : (
+          <Button
+            color="success"
+            onClick={() => handleClick('complete')}
+            type="button"
+          >
             <i className="fas fa-square" />
-          )}
-        </Button>
+          </Button>
+        )}
         <div className="d-flex align-items-center">{todo.name}</div>
         <div>
           {!todo.complete && (
@@ -81,8 +99,10 @@ Todo.propTypes = {
     uid: PropTypes.string,
   }).isRequired,
   setTodos: PropTypes.func,
+  uid: PropTypes.string,
 };
 
 Todo.defaultProps = {
   setTodos: () => {},
+  uid: '',
 };

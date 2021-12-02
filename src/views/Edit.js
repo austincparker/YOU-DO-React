@@ -15,6 +15,7 @@ export default function Edit({ uid }) {
   return (
     <div>
       <TodoForm editItem={editItem} uid={uid} />
+      <h3 className="text-center display-5">Edit Your Todo!</h3>
     </div>
   );
 }

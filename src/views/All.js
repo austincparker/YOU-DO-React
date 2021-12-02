@@ -16,6 +16,7 @@ export default function All({ uid }) {
           key={allTodo.firebaseKey}
           todo={allTodo}
           setTodos={setAllTodos}
+          uid={uid}
         />
       ))}
     </div>

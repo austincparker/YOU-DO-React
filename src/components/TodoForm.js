@@ -51,10 +51,11 @@ export default function TodoForm({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editItem.firebaseKey) {
-      updateTodo(formInput.firebaseKey, formInput).then(() => history.push('/'));
+      updateTodo(formInput.firebaseKey, formInput, uid).then(() => history.push('/'));
       resetForm();
     } else {
-      createTodo({ ...formInput, date: new Date(), uid }).then(() => {
+      console.warn(uid);
+      createTodo({ ...formInput, date: new Date() }, uid).then(() => {
         history.push('/');
       });
       resetForm();
@@ -65,7 +66,11 @@ export default function TodoForm({
     <div className="text-center">
       <h1 className="mt-5 display-1">YOU-DO</h1>
       <TodoStyle className="d-flex justify-content-center mt-2">
-        <form id="todoForm" className="mb-3 d-flex align-items-center">
+        <form
+          id="todoForm"
+          className="mb-3 d-flex align-items-center"
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="name" className="me-1">
             <input
               name="name"
@@ -77,7 +82,7 @@ export default function TodoForm({
               placeholder="ADD A YOU-DO"
             />
           </label>
-          <Button color="success" type="submit" onClick={handleSubmit}>
+          <Button color="success" type="submit">
             {editItem.firebaseKey ? 'Update' : 'Submit'}
           </Button>
         </form>

@@ -17,13 +17,9 @@ function Initialize() {
           uid: authed.uid,
           user: authed.email.split('@')[0],
         };
-        // do something
         setUser(userInfoObj);
-        // console.warn(authed.uid);
       } else if (user || user === null) {
         setUser(false);
-        // console.warn('no user');
-        // do something else
       }
     });
   }, []);

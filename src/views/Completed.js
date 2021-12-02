@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { getTodos } from '../api/data/todoData';
 import CompletedTodos from '../components/CompletedTodos';
 
-export default function Completed() {
+export default function Completed({ uid }) {
   const [completedTodos, setCompletedTodos] = useState([]);
 
   useEffect(() => {
-    getTodos(true).then(setCompletedTodos);
+    getTodos(true, uid).then(setCompletedTodos);
   }, []);
   return (
     <div>
@@ -20,3 +21,11 @@ export default function Completed() {
     </div>
   );
 }
+
+Completed.propTypes = {
+  uid: PropTypes.string,
+};
+
+Completed.defaultProps = {
+  uid: '',
+};
