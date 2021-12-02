@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Todo from '../components/Todo';
+import { getTodos } from '../api/data/todoData';
 
-export default function Home({ todos, setTodos, setEditItem }) {
+export default function Home({
+  uid,
+}) {
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => getTodos(false, uid).then(setTodos), []);
+
   return (
     <div>
       {todos.map((todo) => (
         <Todo
           key={todo.firebaseKey}
-          taco={todo}
+          todo={todo}
+          uid={uid}
           setTodos={setTodos}
-          setEditItem={setEditItem}
         />
       ))}
     </div>
@@ -18,7 +25,5 @@ export default function Home({ todos, setTodos, setEditItem }) {
 }
 
 Home.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setTodos: PropTypes.func.isRequired,
-  setEditItem: PropTypes.func.isRequired,
+  uid: PropTypes.string.isRequired,
 };

@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import { getAllTodos } from '../api/data/todoData';
 import Todo from '../components/Todo';
 
-export default function All({ setEditItem }) {
+export default function All({ uid }) {
   const [allTodos, setAllTodos] = useState([]);
 
   useEffect(() => {
-    getAllTodos().then(setAllTodos);
+    getAllTodos(uid).then(setAllTodos);
   }, []);
   return (
     <div>
       {allTodos.map((allTodo) => (
         <Todo
           key={allTodo.firebaseKey}
-          taco={allTodo}
+          todo={allTodo}
           setTodos={setAllTodos}
-          setEditItem={setEditItem}
+          uid={uid}
         />
       ))}
     </div>
@@ -24,5 +24,5 @@ export default function All({ setEditItem }) {
 }
 
 All.propTypes = {
-  setEditItem: PropTypes.func.isRequired,
+  uid: PropTypes.string.isRequired,
 };

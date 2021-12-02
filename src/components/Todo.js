@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'reactstrap';
-import { deleteTodo, updateTodo } from '../api/data/todoData';
+import { useHistory, useLocation } from 'react-router-dom';
+import { deleteTodo, updateAllTodo, updateTodo } from '../api/data/todoData';
 
 const TodoStyle = styled.div`
   color: black;
@@ -17,14 +18,26 @@ const TodoStyle = styled.div`
   }
 `;
 
-export default function Todo({ taco, setTodos, setEditItem }) {
+export default function Todo({ todo, setTodos, uid }) {
+  const history = useHistory();
+  const location = useLocation();
   const handleClick = (method) => {
     if (method === 'delete') {
-      deleteTodo(taco.firebaseKey).then(setTodos);
+      deleteTodo(todo.firebaseKey).then(setTodos);
     } else if (method === 'edit') {
-      updateTodo(taco.firebaseKey, { name: '' }).then(setTodos);
-    } else {
-      updateTodo(taco.firebaseKey, { complete: !taco.complete }).then(setTodos);
+      updateTodo(todo.firebaseKey, { name: '' }).then(setTodos);
+    } else if ((method === 'complete') && (location.pathname === '/')) {
+      console.warn(method, location.pathname);
+      updateTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
+    } else if ((method === 'complete') && (location.pathname === '/all')) {
+      console.warn(method, location.pathname);
+      updateAllTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
+    } else if ((method === 'uncomplete') && (location.pathname === '/')) {
+      console.warn(method, location.pathname);
+      updateTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
+    } else if ((method === 'uncomplete') && (location.pathname === '/all')) {
+      console.warn(method, location.pathname);
+      updateAllTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
     }
   };
 
@@ -34,23 +47,30 @@ export default function Todo({ taco, setTodos, setEditItem }) {
         className="d-flex justify-content-between alert alert-light todo-comp"
         role="alert"
       >
-        <Button
-          color="success"
-          onClick={() => handleClick('complete')}
-          type="button"
-        >
-          {taco.complete ? (
+        {todo.complete ? (
+          <Button
+            color="success"
+            onClick={() => handleClick('uncomplete')}
+            type="button"
+          >
             <i className="fas fa-check-square" />
-          ) : (
+
+          </Button>
+        ) : (
+          <Button
+            color="success"
+            onClick={() => handleClick('complete')}
+            type="button"
+          >
             <i className="fas fa-square" />
-          )}
-        </Button>
-        <div className="d-flex align-items-center">{taco.name}</div>
+          </Button>
+        )}
+        <div className="d-flex align-items-center">{todo.name}</div>
         <div>
-          {!taco.complete && (
+          {!todo.complete && (
             <Button
               color="info"
-              onClick={() => setEditItem(taco)}
+              onClick={() => history.push(`/edit/${todo.firebaseKey}`)}
               type="button"
               className="me-1"
             >
@@ -71,13 +91,18 @@ export default function Todo({ taco, setTodos, setEditItem }) {
 }
 
 Todo.propTypes = {
-  taco: PropTypes.shape({
+  todo: PropTypes.shape({
     name: PropTypes.string,
     complete: PropTypes.bool,
     firebaseKey: PropTypes.string,
     date: PropTypes.string,
     uid: PropTypes.string,
   }).isRequired,
-  setTodos: PropTypes.func.isRequired,
-  setEditItem: PropTypes.func.isRequired,
+  setTodos: PropTypes.func,
+  uid: PropTypes.string,
+};
+
+Todo.defaultProps = {
+  setTodos: () => {},
+  uid: '',
 };

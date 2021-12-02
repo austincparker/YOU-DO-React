@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { getTodos } from '../api/data/todoData';
-import TodoForm from '../components/TodoForm';
 import Navigation from '../components/Navigation';
 import Routes from '../routes';
 import SignIn from '../views/SignIn';
+import FormRoutes from '../routes/FormRoutes';
 
 function Initialize() {
-  const [todos, setTodos] = useState([]);
-  const [editItem, setEditItem] = useState({});
   const [user, setUser] = useState(null);
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
@@ -20,12 +17,9 @@ function Initialize() {
           uid: authed.uid,
           user: authed.email.split('@')[0],
         };
-        // do something
         setUser(userInfoObj);
-        getTodos(false).then(setTodos);
       } else if (user || user === null) {
         setUser(false);
-        // do something else
       }
     });
   }, []);
@@ -36,8 +30,12 @@ function Initialize() {
       user ? (
         <>
           <Navigation />
-          <TodoForm obj={editItem} setTodos={setTodos} setEditItem={setEditItem} />
-          <Routes todos={todos} setTodos={setTodos} setEditItem={setEditItem} />
+          <FormRoutes
+            uid={user.uid}
+          />
+          <Routes
+            uid={user.uid}
+          />
         </>
       ) : (
         <SignIn />

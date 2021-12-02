@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { ButtonGroup } from 'reactstrap';
+import { Button, ButtonGroup } from 'reactstrap';
 import { signOutUser } from '../api/auth';
 
 export default function Navigation() {
@@ -9,34 +9,30 @@ export default function Navigation() {
   return (
     <div className="text-center mb-3">
       <ButtonGroup size="lg">
-        <button
+        <Button
           onClick={() => history.push('/')}
-          type="button"
-          className="btn btn-light border border-dark"
+          color="light"
         >
           Home
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => history.push('/completed')}
-          type="button"
-          className="btn btn-light border border-dark"
+          color="light"
         >
           View Completed
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => history.push('/all')}
-          type="button"
-          className="btn btn-light border border-dark"
+          color="light"
         >
           All
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={signOutUser}
-          type="button"
-          className="btn btn-danger border border-dark"
+          color="danger"
         >
           Log Out
-        </button>
+        </Button>
       </ButtonGroup>
     </div>
   );

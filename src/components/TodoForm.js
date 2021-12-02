@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
 import { createTodo, updateTodo } from '../api/data/todoData';
 
 const TodoStyle = styled.div`
@@ -21,24 +22,23 @@ const initialState = {
   uid: '',
 };
 
-export default function TodoForm({ obj, setTodos, setEditItem }) {
+export default function TodoForm({
+  uid,
+  editItem,
+}) {
   const [formInput, setFormInput] = useState(initialState);
+  const history = useHistory();
 
   useEffect(() => {
-    if (obj.firebaseKey) {
-      setFormInput({
-        name: obj.name,
-        firebaseKey: obj.firebaseKey,
-        complete: obj.complete,
-        date: obj.date,
-        uid: obj.uid,
-      });
+    if (editItem.firebaseKey) {
+      setFormInput(editItem);
+    } else {
+      setFormInput(initialState);
     }
-  }, [obj]);
+  }, [editItem]);
 
   const resetForm = () => {
     setFormInput({ ...initialState });
-    setEditItem({});
   };
 
   const handleChange = (e) => {
@@ -50,14 +50,15 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.firebaseKey) {
-      updateTodo(formInput.firebaseKey, formInput).then((todos) => setTodos(todos));
+    if (editItem.firebaseKey) {
+      updateTodo(formInput.firebaseKey, formInput, uid).then(() => history.push('/'));
       resetForm();
     } else {
-      createTodo({ ...formInput, date: new Date() }).then((todos) => {
-        setTodos(todos);
-        resetForm();
+      console.warn(uid);
+      createTodo({ ...formInput, date: new Date() }, uid).then(() => {
+        history.push('/');
       });
+      resetForm();
     }
   };
 
@@ -65,7 +66,11 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
     <div className="text-center">
       <h1 className="mt-5 display-1">YOU-DO</h1>
       <TodoStyle className="d-flex justify-content-center mt-2">
-        <form id="todoForm" className="mb-3 d-flex align-items-center">
+        <form
+          id="todoForm"
+          className="mb-3 d-flex align-items-center"
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="name" className="me-1">
             <input
               name="name"
@@ -77,8 +82,8 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
               placeholder="ADD A YOU-DO"
             />
           </label>
-          <Button color="success" type="submit" onClick={handleSubmit}>
-            {obj.firebaseKey ? 'Update' : 'Submit'}
+          <Button color="success" type="submit">
+            {editItem.firebaseKey ? 'Update' : 'Submit'}
           </Button>
         </form>
       </TodoStyle>
@@ -87,17 +92,11 @@ export default function TodoForm({ obj, setTodos, setEditItem }) {
 }
 
 TodoForm.propTypes = {
-  obj: PropTypes.shape({
-    name: PropTypes.string,
-    complete: PropTypes.bool,
-    date: PropTypes.string,
-    firebaseKey: PropTypes.string,
-    uid: PropTypes.string,
-  }),
-  setTodos: PropTypes.func.isRequired,
-  setEditItem: PropTypes.func.isRequired,
+  uid: PropTypes.string,
+  editItem: PropTypes.shape(PropTypes.obj),
 };
 
 TodoForm.defaultProps = {
-  obj: {},
+  editItem: {},
+  uid: '',
 };
