@@ -64,7 +64,6 @@ export default function TodoForm({
 
   return (
     <div className="text-center">
-      <h1 className="mt-5 display-1">YOU-DO</h1>
       <TodoStyle className="d-flex justify-content-center mt-2">
         <form
           id="todoForm"

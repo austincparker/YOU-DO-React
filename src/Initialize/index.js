@@ -5,6 +5,7 @@ import Navigation from '../components/Navigation';
 import Routes from '../routes';
 import SignIn from '../views/SignIn';
 import FormRoutes from '../routes/FormRoutes';
+import Logo from '../components/Logo';
 
 function Initialize() {
   const [user, setUser] = useState(null);
@@ -30,6 +31,7 @@ function Initialize() {
       user ? (
         <>
           <Navigation />
+          <Logo />
           <FormRoutes
             uid={user.uid}
           />
