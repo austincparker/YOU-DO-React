@@ -4,7 +4,6 @@ import 'firebase/auth';
 import Navigation from '../components/Navigation';
 import Routes from '../routes';
 import SignIn from '../views/SignIn';
-import FormRoutes from '../routes/FormRoutes';
 import Logo from '../components/Logo';
 
 function Initialize() {
@@ -32,9 +31,6 @@ function Initialize() {
         <>
           <Navigation />
           <Logo />
-          <FormRoutes
-            uid={user.uid}
-          />
           <Routes
             uid={user.uid}
           />

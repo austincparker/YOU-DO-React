@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Todo from '../components/Todo';
 import { getTodos } from '../api/data/todoData';
+import TodoForm from '../components/TodoForm';
 
 export default function Home({
   uid,
@@ -12,6 +13,7 @@ export default function Home({
 
   return (
     <div>
+      <TodoForm setTodos={setTodos} />
       {todos.map((todo) => (
         <Todo
           key={todo.firebaseKey}

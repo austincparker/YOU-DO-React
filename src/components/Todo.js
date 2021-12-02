@@ -27,16 +27,12 @@ export default function Todo({ todo, setTodos, uid }) {
     } else if (method === 'edit') {
       updateTodo(todo.firebaseKey, { name: '' }).then(setTodos);
     } else if ((method === 'complete') && (location.pathname === '/')) {
-      console.warn(method, location.pathname);
       updateTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
     } else if ((method === 'complete') && (location.pathname === '/all')) {
-      console.warn(method, location.pathname);
       updateAllTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
     } else if ((method === 'uncomplete') && (location.pathname === '/')) {
-      console.warn(method, location.pathname);
       updateTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
     } else if ((method === 'uncomplete') && (location.pathname === '/all')) {
-      console.warn(method, location.pathname);
       updateAllTodo(todo.firebaseKey, { complete: !todo.complete }, uid).then(setTodos);
     }
   };

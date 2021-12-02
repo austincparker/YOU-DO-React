@@ -25,6 +25,7 @@ const initialState = {
 export default function TodoForm({
   uid,
   editItem,
+  setTodos,
 }) {
   const [formInput, setFormInput] = useState(initialState);
   const history = useHistory();
@@ -54,9 +55,7 @@ export default function TodoForm({
       updateTodo(formInput.firebaseKey, formInput, uid).then(() => history.push('/'));
       resetForm();
     } else {
-      createTodo({ ...formInput, date: new Date() }, uid).then(() => {
-        (history.go('0'));
-      });
+      createTodo({ ...formInput, date: new Date() }, uid).then(setTodos);
       resetForm();
     }
   };
@@ -92,9 +91,11 @@ export default function TodoForm({
 TodoForm.propTypes = {
   uid: PropTypes.string,
   editItem: PropTypes.shape(PropTypes.obj),
+  setTodos: PropTypes.func,
 };
 
 TodoForm.defaultProps = {
   editItem: {},
   uid: '',
+  setTodos: () => {},
 };

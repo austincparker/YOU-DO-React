@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Completed from '../views/Completed';
 import Home from '../views/Home';
+import Edit from '../views/Edit';
 import All from '../views/All';
 
 export default function Routes({
@@ -27,6 +28,15 @@ export default function Routes({
           path="/all"
           component={() => (
             <All
+              uid={uid}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/edit/:key"
+          component={() => (
+            <Edit
               uid={uid}
             />
           )}
