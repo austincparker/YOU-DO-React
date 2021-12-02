@@ -54,9 +54,8 @@ export default function TodoForm({
       updateTodo(formInput.firebaseKey, formInput, uid).then(() => history.push('/'));
       resetForm();
     } else {
-      console.warn(uid);
       createTodo({ ...formInput, date: new Date() }, uid).then(() => {
-        history.push('/');
+        (history.go('0'));
       });
       resetForm();
     }
