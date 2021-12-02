@@ -1,6 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { deleteCompletedTodo } from '../api/data/todoData';
+
+const CompTodoStyle = styled.div`
+  color: black;
+  border: 2px darkgrey solid;
+  border-radius: 10px;
+  max-width: 666px;
+  button {
+    color: whitesmoke;
+  }
+  button:hover {
+    color: lightgrey;
+  }
+  margin: 0 auto;
+`;
 
 export default function CompletedTodos({ completedTodo, setCompletedTodos }) {
   const handleClick = () => {
@@ -8,7 +23,7 @@ export default function CompletedTodos({ completedTodo, setCompletedTodos }) {
   };
 
   return (
-    <>
+    <CompTodoStyle>
       <div
         className="d-flex justify-content-between alert alert-light"
         role="alert"
@@ -18,7 +33,7 @@ export default function CompletedTodos({ completedTodo, setCompletedTodos }) {
           DELETE
         </button>
       </div>
-    </>
+    </CompTodoStyle>
   );
 }
 
