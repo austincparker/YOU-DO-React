@@ -17,6 +17,7 @@ function Initialize() {
           uid: authed.uid,
           user: authed.email.split('@')[0],
         };
+        console.warn(authed.uid);
         setUser(userInfoObj);
       } else if (user || user === null) {
         setUser(false);
