@@ -13,7 +13,10 @@ export default function Home({
 
   return (
     <div>
-      <TodoForm setTodos={setTodos} />
+      <TodoForm
+        setTodos={setTodos}
+        uid={uid}
+      />
       {todos.map((todo) => (
         <Todo
           key={todo.firebaseKey}
