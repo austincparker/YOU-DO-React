@@ -8,8 +8,9 @@ export default function Home({
   uid,
 }) {
   const [todos, setTodos] = useState([]);
+  const filteredTodos = todos.filter((todo) => todo.complete === false);
 
-  useEffect(() => getTodos(false, uid).then(setTodos), []);
+  useEffect(() => getTodos(uid).then(setTodos), []);
 
   return (
     <div>
@@ -17,7 +18,7 @@ export default function Home({
         setTodos={setTodos}
         uid={uid}
       />
-      {todos.map((todo) => (
+      {filteredTodos.map((todo) => (
         <Todo
           key={todo.firebaseKey}
           todo={todo}

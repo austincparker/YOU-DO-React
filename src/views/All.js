@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getAllTodos } from '../api/data/todoData';
+import { getTodos } from '../api/data/todoData';
 import Todo from '../components/Todo';
 
 export default function All({ uid }) {
   const [allTodos, setAllTodos] = useState([]);
 
   useEffect(() => {
-    getAllTodos(uid).then(setAllTodos);
+    getTodos(uid).then(setAllTodos);
   }, []);
   return (
     <div>

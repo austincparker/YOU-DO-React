@@ -17,9 +17,9 @@ const CompTodoStyle = styled.div`
   margin: 0 auto;
 `;
 
-export default function CompletedTodos({ completedTodo, setCompletedTodos }) {
+export default function CompletedTodos({ completedTodo, setCompletedTodos, uid }) {
   const handleClick = () => {
-    deleteCompletedTodo(completedTodo.firebaseKey).then(setCompletedTodos);
+    deleteCompletedTodo(completedTodo.firebaseKey, uid).then(setCompletedTodos);
   };
 
   return (
@@ -45,5 +45,10 @@ CompletedTodos.propTypes = {
     firebaseKey: PropTypes.string,
     uid: PropTypes.string,
   }).isRequired,
+  uid: PropTypes.string,
   setCompletedTodos: PropTypes.func.isRequired,
+};
+
+CompletedTodos.defaultProps = {
+  uid: '',
 };
