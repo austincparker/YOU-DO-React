@@ -6,16 +6,19 @@ import CompletedTodos from '../components/CompletedTodos';
 export default function Completed({ uid }) {
   const [completedTodos, setCompletedTodos] = useState([]);
 
+  const filteredTodos = completedTodos.filter((todo) => todo.complete);
+
   useEffect(() => {
-    getTodos(true, uid).then(setCompletedTodos);
+    getTodos(uid).then(setCompletedTodos);
   }, []);
   return (
     <div>
-      {completedTodos.map((completedTodo) => (
+      {filteredTodos.map((completedTodo) => (
         <CompletedTodos
           key={completedTodo.firebaseKey}
           completedTodo={completedTodo}
           setCompletedTodos={setCompletedTodos}
+          uid={uid}
         />
       ))}
     </div>

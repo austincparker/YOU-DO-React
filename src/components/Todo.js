@@ -23,7 +23,7 @@ export default function Todo({ todo, setTodos, uid }) {
   const location = useLocation();
   const handleClick = (method) => {
     if (method === 'delete') {
-      deleteTodo(todo.firebaseKey).then(setTodos);
+      deleteTodo(todo.firebaseKey, uid).then(setTodos);
     } else if (method === 'edit') {
       updateTodo(todo.firebaseKey, { name: '' }).then(setTodos);
     } else if ((method === 'complete') && (location.pathname === '/')) {
